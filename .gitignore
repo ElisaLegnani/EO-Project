@@ -1,3 +1,25 @@
 _*
+
+# Dataset
+data/
+
+# Model artifacts
+artifacts/*
+!artifacts/.gitkeep
+*.pth
+*.pt
+
+# MLflow
+mlruns/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/ 
+
+# IDE
+.vscode/
+.idea/
 .DS_Store
-data/EuroSAT_RGB

@@ -1,0 +1,42 @@
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "satellite-classifier"
+version = "0.1.0"
+description = "Satellite image classification using EuroSAT"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26,<2",
+    "torch==2.2.2",
+    "torchvision==0.17.2",
+    "pillow",
+    "matplotlib",
+    "scikit-learn",
+    "pydantic",
+    "mlflow",
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "httpx",
+    "ruff",
+    "pre-commit",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
