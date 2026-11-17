@@ -1,7 +1,7 @@
 utils/*
 
 # Dataset
-data/
+data/Eurosat_RGB/
 
 # Model artifacts
 artifacts/*
@@ -23,3 +23,6 @@ __pycache__/
 .vscode/
 .idea/
 .DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
