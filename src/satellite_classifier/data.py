@@ -20,7 +20,7 @@ def get_transforms():
     ])
 
 
-def create_datasets(data_dir: Path):
+def create_datasets(data_dir: Path, seed: int = SEED):
     """Load EuroSAT and create stratified dataset splits."""
 
     data_dir = Path(data_dir)
@@ -51,7 +51,7 @@ def create_datasets(data_dir: Path):
     val_indices = []
     test_indices = []
 
-    generator = torch.Generator().manual_seed(SEED)
+    generator = torch.Generator().manual_seed(seed)
 
     for indices in class_indices.values():
 
@@ -106,7 +106,12 @@ def create_datasets(data_dir: Path):
         full_dataset.classes,
     )
 
-def create_dataloaders(data_dir: Path):
+def create_dataloaders(
+    data_dir: Path,
+    batch_size: int = BATCH_SIZE,
+    num_workers: int = 0,
+    seed: int = SEED,
+):
     """Create DataLoaders for training, validation and testing."""
 
     (
@@ -114,30 +119,30 @@ def create_dataloaders(data_dir: Path):
         val_dataset,
         test_dataset,
         class_names,
-    ) = create_datasets(data_dir)
+    ) = create_datasets(data_dir, seed=seed)
 
     generator = torch.Generator().manual_seed(SEED)
 
     train_loader = DataLoader(
         train_dataset,
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=True,
-        num_workers=0,
-        generator=generator,
+        num_workers=num_workers,
+        generator=torch.Generator().manual_seed(seed),
     )
 
     val_loader = DataLoader(
         val_dataset,
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=False,
-        num_workers=0,
+        num_workers=num_workers,
     )
 
     test_loader = DataLoader(
         test_dataset,
-        batch_size=BATCH_SIZE,
+        batch_size=batch_size,
         shuffle=False,
-        num_workers=0,
+        num_workers=num_workers,
     )
 
     return (
