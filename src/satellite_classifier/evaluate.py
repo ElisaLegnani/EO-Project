@@ -3,15 +3,14 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import torch
 from sklearn.metrics import (
+    ConfusionMatrixDisplay,
     accuracy_score,
     classification_report,
     confusion_matrix,
-    ConfusionMatrixDisplay,
 )
 
 from satellite_classifier.data import create_dataloaders
 from satellite_classifier.model import SatelliteCNN
-
 
 DATA_DIR = Path("data/EuroSAT_RGB")
 CHECKPOINT_PATH = Path("models/best_model.pth")

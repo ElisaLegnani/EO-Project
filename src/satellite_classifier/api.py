@@ -2,14 +2,13 @@ from contextlib import asynccontextmanager
 from io import BytesIO
 
 import torch
-from fastapi import FastAPI, File, HTTPException, UploadFile, Request
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from PIL import Image, UnidentifiedImageError
 from pydantic import BaseModel
 from torchvision import transforms
 
 from satellite_classifier.predict import (
     CLASS_NAMES,
-    get_device,
     load_model,
 )
 

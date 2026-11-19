@@ -6,7 +6,6 @@ from torchvision import transforms
 
 from satellite_classifier.model import SatelliteCNN
 
-
 CHECKPOINT_PATH = Path("models/best_model.pth")
 
 CLASS_NAMES = [

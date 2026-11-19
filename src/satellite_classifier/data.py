@@ -1,4 +1,5 @@
 from pathlib import Path
+
 import torch
 from torch.utils.data import DataLoader, Subset
 from torchvision import datasets, transforms
@@ -108,7 +109,7 @@ def create_dataloaders(
         class_names,
     ) = create_datasets(data_dir, seed=seed)
 
-    generator = torch.Generator().manual_seed(SEED)
+    # generator = torch.Generator().manual_seed(SEED)
 
     train_loader = DataLoader(
         train_dataset,

@@ -1,4 +1,5 @@
 import torch
+
 from satellite_classifier.model import SatelliteCNN
 
 checkpoint = torch.load(

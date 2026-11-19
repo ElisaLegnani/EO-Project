@@ -1,12 +1,12 @@
 import random
-import numpy as np
-import torch
 from pathlib import Path
+
 import matplotlib.pyplot as plt
 import mlflow
+import numpy as np
+import torch
 import torch.nn as nn
 from sklearn.metrics import ConfusionMatrixDisplay
-from torch.utils.data import DataLoader
 
 from satellite_classifier.config import TrainConfig
 from satellite_classifier.data import create_dataloaders
@@ -29,7 +29,6 @@ def set_seed(seed: int):
 
 
 def get_device(config: TrainConfig):
-
     if config.device == "auto":
         if torch.cuda.is_available():
             return torch.device("cuda")
@@ -132,7 +131,6 @@ def evaluate(
 
 
 def save_training_curves(history, output_dir: Path):
-
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
     # Loss
@@ -184,7 +182,6 @@ def save_confusion_matrix(
     class_names,
     output_dir: Path,
 ):
-
     fig, ax = plt.subplots(figsize=(10, 8))
 
     ConfusionMatrixDisplay.from_predictions(
@@ -207,7 +204,6 @@ def save_confusion_matrix(
 
 
 def main():
-
     config = TrainConfig(learning_rate=0.0005)
 
     set_seed(config.seed)

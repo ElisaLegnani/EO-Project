@@ -1,12 +1,13 @@
 from pathlib import Path
+
 import matplotlib.pyplot as plt
+
 from satellite_classifier.data import create_dataloaders
 
 DATA_DIR = Path("data/EuroSAT_RGB")
 
 
 def main():
-
     (
         train_loader,
         val_loader,

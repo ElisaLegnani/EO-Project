@@ -1,11 +1,11 @@
 from pathlib import Path
+
 from PIL import Image
-import torch
+
 from satellite_classifier.data import create_dataloaders
 
 
 def create_fake_dataset(data_dir: Path):
-
     class_names = [
         "AnnualCrop",
         "Forest",
@@ -34,7 +34,6 @@ def create_fake_dataset(data_dir: Path):
 
 
 def test_dataloaders_return_expected_shapes(tmp_path):
-
     data_dir = tmp_path / "EuroSAT_RGB"
 
     create_fake_dataset(data_dir)
@@ -80,7 +79,6 @@ def test_dataloaders_return_expected_shapes(tmp_path):
 
 
 def test_dataset_splits_do_not_overlap(tmp_path):
-
     data_dir = tmp_path / "EuroSAT_RGB"
 
     create_fake_dataset(data_dir)

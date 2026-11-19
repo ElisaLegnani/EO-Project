@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from PIL import Image
 
 DATA_DIR = Path("data/EuroSAT_RGB")
