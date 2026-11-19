@@ -216,7 +216,7 @@ def save_confusion_matrix(
 
 def main():
 
-    config = TrainConfig()
+    config = TrainConfig(learning_rate=0.0005)
 
     set_seed(config.seed)
 
