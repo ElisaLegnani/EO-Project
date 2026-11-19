@@ -1,4 +1,3 @@
-
 from pathlib import Path
 from PIL import Image
 
@@ -10,9 +9,7 @@ def main():
     if not DATA_DIR.exists():
         raise FileNotFoundError(f"Dataset directory not found: {DATA_DIR}")
 
-    class_dirs = sorted(
-        path for path in DATA_DIR.iterdir() if path.is_dir()
-    )
+    class_dirs = sorted(path for path in DATA_DIR.iterdir() if path.is_dir())
 
     total_images = 0
 
@@ -32,10 +29,7 @@ def main():
 
         if images:
             with Image.open(images[0]) as image:
-                print(
-                    f"  Image size: {image.size}, "
-                    f"Mode: {image.mode}"
-                )
+                print(f"  Image size: {image.size}, Mode: {image.mode}")
 
     print("-" * 50)
     print(f"Total images: {total_images}")

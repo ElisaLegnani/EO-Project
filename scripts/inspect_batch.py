@@ -4,6 +4,7 @@ from satellite_classifier.data import create_dataloaders
 
 DATA_DIR = Path("data/EuroSAT_RGB")
 
+
 def main():
 
     (
@@ -42,7 +43,6 @@ def main():
         images[:10],
         labels[:10],
     ):
-
         # Convert from [C, H, W] to [H, W, C]
 
         image = image.permute(1, 2, 0)

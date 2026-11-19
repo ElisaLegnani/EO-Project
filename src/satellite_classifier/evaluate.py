@@ -1,4 +1,3 @@
-
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -29,9 +28,7 @@ def get_device():
 
 def load_checkpoint(model, checkpoint_path, device):
     if not checkpoint_path.is_file():
-        raise FileNotFoundError(
-            f"Checkpoint not found: {checkpoint_path}"
-        )
+        raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
 
     checkpoint = torch.load(
         checkpoint_path,

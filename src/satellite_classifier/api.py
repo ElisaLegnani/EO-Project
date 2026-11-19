@@ -1,4 +1,3 @@
-
 from contextlib import asynccontextmanager
 from io import BytesIO
 
@@ -24,10 +23,12 @@ class HealthResponse(BaseModel):
     status: str
 
 
-IMAGE_TRANSFORM = transforms.Compose([
-    transforms.Resize((64, 64)),
-    transforms.ToTensor(),
-])
+IMAGE_TRANSFORM = transforms.Compose(
+    [
+        transforms.Resize((64, 64)),
+        transforms.ToTensor(),
+    ]
+)
 
 MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10 MB
 

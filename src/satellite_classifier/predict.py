@@ -1,4 +1,3 @@
-
 from pathlib import Path
 
 import torch
@@ -23,10 +22,12 @@ CLASS_NAMES = [
     "SeaLake",
 ]
 
-IMAGE_TRANSFORM = transforms.Compose([
-    transforms.Resize((64, 64)),
-    transforms.ToTensor(),
-])
+IMAGE_TRANSFORM = transforms.Compose(
+    [
+        transforms.Resize((64, 64)),
+        transforms.ToTensor(),
+    ]
+)
 
 
 def get_device():
@@ -41,9 +42,7 @@ def load_model():
     device = get_device()
 
     if not CHECKPOINT_PATH.is_file():
-        raise FileNotFoundError(
-            f"Checkpoint not found: {CHECKPOINT_PATH}"
-        )
+        raise FileNotFoundError(f"Checkpoint not found: {CHECKPOINT_PATH}")
 
     checkpoint = torch.load(
         CHECKPOINT_PATH,

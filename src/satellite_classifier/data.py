@@ -11,13 +11,16 @@ TRAIN_RATIO = 0.70
 VAL_RATIO = 0.15
 TEST_RATIO = 0.15
 
+
 def get_transforms():
     """Return the transformations applied to satellite images."""
 
-    return transforms.Compose([
-        transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-        transforms.ToTensor(),
-    ])
+    return transforms.Compose(
+        [
+            transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
+            transforms.ToTensor(),
+        ]
+    )
 
 
 def create_datasets(data_dir: Path, seed: int = SEED):
@@ -26,9 +29,7 @@ def create_datasets(data_dir: Path, seed: int = SEED):
     data_dir = Path(data_dir)
 
     if not data_dir.is_dir():
-        raise FileNotFoundError(
-            f"Dataset directory not found: {data_dir}"
-        )
+        raise FileNotFoundError(f"Dataset directory not found: {data_dir}")
 
     transform = get_transforms()
 
@@ -38,9 +39,7 @@ def create_datasets(data_dir: Path, seed: int = SEED):
     )
 
     if len(full_dataset.classes) != 10:
-        raise ValueError(
-            f"Expected 10 classes, found {len(full_dataset.classes)}"
-        )
+        raise ValueError(f"Expected 10 classes, found {len(full_dataset.classes)}")
 
     class_indices = {}
 
@@ -54,11 +53,8 @@ def create_datasets(data_dir: Path, seed: int = SEED):
     generator = torch.Generator().manual_seed(seed)
 
     for indices in class_indices.values():
-
         if len(indices) < 3:
-            raise ValueError(
-                "Each class needs at least 3 images for splitting."
-            )
+            raise ValueError("Each class needs at least 3 images for splitting.")
 
         indices = torch.tensor(indices)
 
@@ -79,21 +75,11 @@ def create_datasets(data_dir: Path, seed: int = SEED):
             train_size -= 1
             test_size = 1
 
-        train_indices.extend(
-            shuffled_indices[:train_size]
-        )
+        train_indices.extend(shuffled_indices[:train_size])
 
-        val_indices.extend(
-            shuffled_indices[
-                train_size:train_size + val_size
-            ]
-        )
+        val_indices.extend(shuffled_indices[train_size : train_size + val_size])
 
-        test_indices.extend(
-            shuffled_indices[
-                train_size + val_size:
-            ]
-        )
+        test_indices.extend(shuffled_indices[train_size + val_size :])
 
     train_dataset = Subset(full_dataset, train_indices)
     val_dataset = Subset(full_dataset, val_indices)
@@ -105,6 +91,7 @@ def create_datasets(data_dir: Path, seed: int = SEED):
         test_dataset,
         full_dataset.classes,
     )
+
 
 def create_dataloaders(
     data_dir: Path,

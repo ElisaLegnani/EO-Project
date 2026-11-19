@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -7,9 +6,7 @@ DATA_DIR = Path("data/EuroSAT_RGB")
 
 
 def main():
-    class_dirs = sorted(
-        path for path in DATA_DIR.iterdir() if path.is_dir()
-    )
+    class_dirs = sorted(path for path in DATA_DIR.iterdir() if path.is_dir())
 
     fig, axes = plt.subplots(2, 5, figsize=(15, 7))
 

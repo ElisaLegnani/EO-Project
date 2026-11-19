@@ -31,7 +31,6 @@ def set_seed(seed: int):
 def get_device(config: TrainConfig):
 
     if config.device == "auto":
-
         if torch.cuda.is_available():
             return torch.device("cuda")
 
@@ -57,7 +56,6 @@ def train_one_epoch(
     total = 0
 
     for images, labels in loader:
-
         images = images.to(device)
         labels = labels.to(device)
 
@@ -103,9 +101,7 @@ def evaluate(
     all_labels = []
 
     with torch.no_grad():
-
         for images, labels in loader:
-
             images = images.to(device)
             labels = labels.to(device)
 
@@ -123,13 +119,9 @@ def evaluate(
 
             total += batch_size
 
-            all_predictions.extend(
-                predictions.cpu().tolist()
-            )
+            all_predictions.extend(predictions.cpu().tolist())
 
-            all_labels.extend(
-                labels.cpu().tolist()
-            )
+            all_labels.extend(labels.cpu().tolist())
 
     return (
         total_loss / total,
@@ -240,9 +232,7 @@ def main():
 
     # Create model
 
-    model = SatelliteCNN(
-        num_classes=config.num_classes
-    ).to(device)
+    model = SatelliteCNN(num_classes=config.num_classes).to(device)
 
     criterion = nn.CrossEntropyLoss()
 
@@ -263,34 +253,31 @@ def main():
         exist_ok=True,
     )
 
-    checkpoint_path = (
-        config.checkpoint_dir / "best_model.pth"
-    )
+    checkpoint_path = config.checkpoint_dir / "best_model.pth"
 
     # Configure MLflow
 
     mlflow.set_tracking_uri("sqlite:///mlflow.db")
 
-    mlflow.set_experiment(
-        config.experiment_name
-    )
+    mlflow.set_experiment(config.experiment_name)
 
     with mlflow.start_run():
-
         # Log configuration parameters
 
-        mlflow.log_params({
-            "seed": config.seed,
-            "batch_size": config.batch_size,
-            "learning_rate": config.learning_rate,
-            "epochs": config.epochs,
-            "num_workers": config.num_workers,
-            "num_classes": config.num_classes,
-            "optimizer": "Adam",
-            "loss_function": "CrossEntropyLoss",
-            "model": "SatelliteCNN",
-            "device": str(device),
-        })
+        mlflow.log_params(
+            {
+                "seed": config.seed,
+                "batch_size": config.batch_size,
+                "learning_rate": config.learning_rate,
+                "epochs": config.epochs,
+                "num_workers": config.num_workers,
+                "num_classes": config.num_classes,
+                "optimizer": "Adam",
+                "loss_function": "CrossEntropyLoss",
+                "model": "SatelliteCNN",
+                "device": str(device),
+            }
+        )
 
         best_val_accuracy = 0.0
 
@@ -304,7 +291,6 @@ def main():
         # Training loop
 
         for epoch in range(config.epochs):
-
             train_loss, train_accuracy = train_one_epoch(
                 model,
                 train_loader,
@@ -333,12 +319,15 @@ def main():
 
             # Log metrics to MLflow
 
-            mlflow.log_metrics({
-                "train_loss": train_loss,
-                "val_loss": val_loss,
-                "train_accuracy": train_accuracy,
-                "val_accuracy": val_accuracy,
-            }, step=epoch)
+            mlflow.log_metrics(
+                {
+                    "train_loss": train_loss,
+                    "val_loss": val_loss,
+                    "train_accuracy": train_accuracy,
+                    "val_accuracy": val_accuracy,
+                },
+                step=epoch,
+            )
 
             print(
                 f"Epoch [{epoch + 1}/{config.epochs}] "
@@ -351,7 +340,6 @@ def main():
             # Save the best checkpoint
 
             if val_accuracy > best_val_accuracy:
-
                 best_val_accuracy = val_accuracy
 
                 torch.save(
@@ -365,10 +353,7 @@ def main():
                     checkpoint_path,
                 )
 
-        print(
-            f"\nBest validation accuracy: "
-            f"{best_val_accuracy:.4f}"
-        )
+        print(f"\nBest validation accuracy: {best_val_accuracy:.4f}")
 
         # Log the best checkpoint
 
@@ -391,9 +376,7 @@ def main():
             map_location=device,
         )
 
-        model.load_state_dict(
-            checkpoint["model_state_dict"]
-        )
+        model.load_state_dict(checkpoint["model_state_dict"])
 
         _, _, predictions, true_labels = evaluate(
             model,

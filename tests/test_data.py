@@ -3,6 +3,7 @@ from PIL import Image
 import torch
 from satellite_classifier.data import create_dataloaders
 
+
 def create_fake_dataset(data_dir: Path):
 
     class_names = [
@@ -19,21 +20,17 @@ def create_fake_dataset(data_dir: Path):
     ]
 
     for class_name in class_names:
-
         class_dir = data_dir / class_name
         class_dir.mkdir(parents=True)
 
         for index in range(10):
-
             image = Image.new(
                 "RGB",
                 (64, 64),
                 color=(index * 10, 100, 150),
             )
 
-            image.save(
-                class_dir / f"image_{index}.png"
-            )
+            image.save(class_dir / f"image_{index}.png")
 
 
 def test_dataloaders_return_expected_shapes(tmp_path):
@@ -76,9 +73,7 @@ def test_dataloaders_return_expected_shapes(tmp_path):
     # Check that all samples are accounted for
 
     total_samples = (
-        len(train_loader.dataset)
-        + len(val_loader.dataset)
-        + len(test_loader.dataset)
+        len(train_loader.dataset) + len(val_loader.dataset) + len(test_loader.dataset)
     )
 
     assert total_samples == 100
@@ -97,17 +92,11 @@ def test_dataset_splits_do_not_overlap(tmp_path):
         _,
     ) = create_dataloaders(data_dir)
 
-    train_indices = set(
-        train_loader.dataset.indices
-    )
+    train_indices = set(train_loader.dataset.indices)
 
-    val_indices = set(
-        val_loader.dataset.indices
-    )
+    val_indices = set(val_loader.dataset.indices)
 
-    test_indices = set(
-        test_loader.dataset.indices
-    )
+    test_indices = set(test_loader.dataset.indices)
 
     assert train_indices.isdisjoint(val_indices)
 
