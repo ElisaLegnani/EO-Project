@@ -1,0 +1,27 @@
+
+# Git
+.git
+.gitignore
+
+# Python environments
+__pycache__/
+*.pyc
+
+# Dataset
+data/
+
+# MLflow
+mlruns/
+mlflow.db
+
+# Development files
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
