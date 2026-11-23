@@ -16,6 +16,7 @@ from satellite_classifier.predict import (
 class PredictionResponse(BaseModel):
     predicted_class: str
     confidence: float
+    probabilities: dict[str, float]
 
 
 class HealthResponse(BaseModel):
@@ -113,7 +114,15 @@ async def predict(
         probabilities = torch.softmax(logits, dim=1)
         confidence, predicted_index = probabilities.max(dim=1)
 
+        probability_values = probabilities.squeeze(0).cpu().tolist()
+
+    class_probabilities = {
+        class_name: round(float(probability), 4)
+        for class_name, probability in zip(CLASS_NAMES, probability_values)
+    }
+
     return PredictionResponse(
         predicted_class=CLASS_NAMES[predicted_index.item()],
         confidence=round(confidence.item(), 4),
+        probabilities=class_probabilities,
     )
