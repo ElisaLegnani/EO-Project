@@ -356,7 +356,7 @@ elif page == "About":
 
     st.markdown(
         """
-        [![https://github.com/ElisaLegnani/EO-Project](https://badgen.net/badge/icon/GitHub?icon=github&label)]
+        [![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-blue?logo=github)](https://github.com/ElisaLegnani/EO-Project/)
 
         This application uses a deep learning model to classify
         satellite images into ten land-cover categories.
