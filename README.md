@@ -151,8 +151,7 @@ Forest, Residential and SeaLake are classified most reliably (F1 ≥ 0.92). High
 
 </details>
 
-<br>
-<img src="artifacts/confusion_matrix_test.png" alt="Confusion matrix" width="50%">
+<img src="artifacts/confusion_matrix_test.png" alt="Confusion matrix" width="600">
 
 ## Limitations and future improvements
 
