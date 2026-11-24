@@ -3,12 +3,6 @@ utils/*
 # Dataset
 data/Eurosat_RGB/
 
-# Model artifacts
-artifacts/*
-!artifacts/.gitkeep
-*.pth
-*.pt
-
 # MLflow
 mlflow.db
 mlflow.db-shm

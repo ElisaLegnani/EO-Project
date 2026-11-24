@@ -176,7 +176,7 @@ st.markdown(
 # --------------------------------------------------
 
 if page == "Classify":
-    left, right = st.columns([1, 1], gap="large")
+    left, right = st.columns([1, 2], gap="large")
 
     with left:
         st.subheader("Upload satellite image")
